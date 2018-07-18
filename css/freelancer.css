@@ -130,7 +130,9 @@ counter-reset:li; /* Initiate a counter */
 margin-left:0; /* Remove the default left margin */
 padding-left:0; /* Remove the default left padding */
 }
-
+#img-cropper {
+  position: fixed;
+}
 /* item  */
 .rounded-list ol > li
 {

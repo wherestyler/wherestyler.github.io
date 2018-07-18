@@ -46,7 +46,59 @@ $("#hover-to-step5").hover(function(){
 $("#onwards1").click(function(){
   $(".nav-tabs>li:nth-child(3) a").click();
 });
+$("#onwards2").click(function(){
+  $(".nav-tabs>li:nth-child(4) a").click();
+});
+$("#onwards3").click(function(){
+  $(".nav-tabs>li:nth-child(5) a").click();
+});
+$("#onwards4").click(function(){
+  $(".nav-tabs>li:nth-child(6) a").click();
+});
   });
+  $(document).ready(function(){
+    animateDiv();
+    
+});
+
+function makeNewPosition(){
+    
+    // Get viewport dimensions (remove the dimension of the div)
+    var h = $(window).height() - 50;
+    var w = $(window).width() - 50;
+    
+    var nh = Math.floor(Math.random() * h);
+    var nw = Math.floor(Math.random() * w);
+    
+    return [nh,nw];    
+    
+}
+
+function animateDiv(){
+    var newq = makeNewPosition();
+    var oldq = $('#img-cropper').offset();
+    var speed = calcSpeed([oldq.top, oldq.left], newq);
+    
+    $('#img-cropper').animate({ top: newq[0], left: newq[1] }, speed, function(){
+      animateDiv();        
+    });
+    
+};
+
+function calcSpeed(prev, next) {
+    
+    var x = Math.abs(prev[1] - next[1]);
+    var y = Math.abs(prev[0] - next[0]);
+    
+    var greatest = x > y ? x : y;
+    
+    var speedModifier = 1;
+
+    var speed = Math.ceil(greatest/speedModifier);
+
+    return speed;
+
+}
 
 </script>
 
@@ -81,12 +133,12 @@ $("#onwards1").click(function(){
     <!-- Header -->
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
-        <div class="img-cropper">
-          <img class="img-fluid mb-5 d-block mx-auto" src="img/tyler.png" alt="">
+        <div class="img-cropper" id="img-cropper">
+          <img id="tyler" class="img-fluid mb-5 d-block mx-auto" src="img/tyler.png" alt="">
         </div>
         <h1 class="text-uppercase mb-0">Where's Tyler?</h1>
         <hr class="star-light">
-        <h2 class="font-weight-light mb-0">Crushing someone's hopes and dreams one facial recognition tool at a time.</h2>
+        <h2 class="font-weight-light mb-0">Outtrolling a troll.</h2>
       </div>
     </header>
 
@@ -152,13 +204,13 @@ $("#onwards1").click(function(){
                                     cd dlib<br>
                                     mkdir build; cd build; cmake .. -DDLIB_USE_CUDA=0 -DUSE_AVX_INSTRUCTIONS=1; cmake --build .<br>
                                     cd ..<br>
-                                    python3 setup.py install --yes USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA</code></p></li>
+                                    python setup.py install --yes USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA</code></p></li>
                                   <li>
                                     <h4>Install pip (if you have not already)</h4>
                                     <p>Check if you have installed pip: <code>pip --version</code><br>If you received the version, proceed to <span id="hover-to-step5"><b>step 5</b></span>.<br>If you received an error, install pip with the following script: <code>sudo easy_install pip</code></p></li>
                                   <li id="step5">
-                                    <h4>Install <code>face-recognition</code></h4>
-                                    <p>Install <code>face-recognition</code> as follows: <code>sudo pip install face-recognition</code></p></li>
+                                    <h4>Install <code>face_recognition</code></h4>
+                                    <p>Install <code>face_recognition</code> as follows: <code>sudo pip install face_recognition</code></p></li>
                                   </ol>
                           
                           <p class="text-center">
@@ -178,53 +230,64 @@ $("#onwards1").click(function(){
                                     <h4>Install Apple Command Line Tools</h4>
                                     <p>Install Apple Command Line Tools with <code>sudo xcode-select --install</code></p></li>
                                   <li>
-                                    <h4>Install Dlib</h4>
-                                    <p>Clone the Dlib repository, and build/install the library: <br><code>
-                                    git clone https://github.com/davisking/dlib.git<br>
-                                    cd dlib<br>
-                                    mkdir build; cd build; cmake .. -DDLIB_USE_CUDA=0 -DUSE_AVX_INSTRUCTIONS=1; cmake --build .<br>
-                                    cd ..<br>
-                                    python3 setup.py install --yes USE_AVX_INSTRUCTIONS --no DLIB_USE_CUDA</code></p></li>
+                                    <h4>Install OpenCV</h4>
+                                    <p>Install OpenCV with <code>brew install opencv</code></li>
                                   <li>
-                                    <h4>Install pip (if you have not already)</h4>
-                                    <p>Check if you have installed pip: <code>pip --version</code><br>If you received the version, proceed to <span id="hover-to-step5"><b>step 5</b></span>.<br>If you received an error, install pip with the following script: <code>sudo easy_install pip</code></p></li>
-                                  <li id="step5">
-                                    <h4>Install <code>face-recognition</code></h4>
-                                    <p>Install <code>face-recognition</code> as follows: <code>sudo pip install face-recognition</code></p></li>
+                                    <h4>Check installations</h4>
+                                    <p>Verify the installations by running the following line from your command line: <code>python -c "import cv2, os, pickle, subprocess, sys, face_recognition"</code></p>
+                                    <h5>If you get an error and do not know how to fix it, please <a href="mailto:aj8uppal@gmail.com">let me know</a></h5></li>
                                   </ol>
                           
                           <p class="text-center">
-                    <a href="" class="btn btn-success btn-outline-rounded green"> create your profile <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                    <a href="#messages" id="onwards2" class="btn btn-success btn-outline-rounded green"> All good! <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                 </p>
                           
                       </div>
                       <div class="tab-pane fade" id="messages">
-                          <h3 class="head text-center">Bootsnipp goodies</h3>
-                          <p class="narrow text-center">
-                              Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                          </p>
+                          <h3 class="head text-center">Cloning <code>wherestyler.py</code></h3>
+                          <ol>
+                                  <li>
+                                    <h4>Clone the repository</h4>
+                                    <p>Navigate to your home folder (<code>cd ~</code>) and clone the repository as follows: <code>git clone https://github.com/aj8uppal/wherestyler.git</code></p>
+                                  </li>
+                                  <li>
+                                    <h4>Verify files</h4>
+                                    <p>Enter the cloned repository (<code>cd wherestyler</code>) and check the contents (<code>ls</code>).<br>
+                                      The file <code>encodings.txt</code> contains the encodings of each face; the program stores the encodings in this file simply because processing the images is time-consuming and we don't want to do that every iteration of the program.<br>
+                                      There are 6 existing images in the folder, {person1.jpg, person2.jpg... person6.jpg}. 3 of these are Tyler, 2 are Jordan, 1 is me.<br>
+                                      Whenever you add a new image to the directory, please follow the directions outlined in <code>wherestyler.py</code>.</p></li>
+                                  
+                                  </ol>
                           
                           <p class="text-center">
-                    <a href="" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                    <a href="#settings" id="onwards3" class="btn btn-success btn-outline-rounded green"> Got it! ;) <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                 </p>
                       </div>
                       <div class="tab-pane fade" id="settings">
-                          <h3 class="head text-center">Drop comments!</h3>
-                          <p class="narrow text-center">
-                              Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                          </p>
+                          <h3 class="head text-center">Running the program</h3>
+                          <ol>
+                                  <li>
+                                    <h4>Run the program</h4>
+                                    <p>Enter the following line into your interpreter: <code>python wherestyler.py</code></p>
+                                  </li>
+                                  <li>
+                                    <h4>Follow Instructions</h4>
+                                    <p>Follow the onscreen instructions, which tell you how to add a new face. You must name your image file exactly as instructed and make sure it is a jpg otherwise it will not work. Furthermore, make sure to add your name to the array.<br>
+                                      <h4>In case you want to add more faces after, simply add them as shown (a subsequent <code>n</code> satisfying the formula <code>person{n}.jpg</code>, and make sure to add their names to the array, with respect to the order of the images.</p></li>
+                                  
+                                  </ol>
                           
                           <p class="text-center">
-                    <a href="" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                    <a href="#doner" id="onwards4" class="btn btn-success btn-outline-rounded green"> Let's do this! <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                 </p>
                       </div>
                       <div class="tab-pane fade" id="doner">
   <div class="text-center">
     <i class="img-intro icon-checkmark-circle"></i>
 </div>
-<h3 class="head text-center">thanks for staying tuned! <span style="color:#f48260;">♥</span> Bootstrap</h3>
+<h3 class="head text-center">Enjoy trolling!</h3>
 <p class="narrow text-center">
-  Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
+  Ping me at <a href="mailto: aj8uppal@gmail.com">aj8uppal@gmail.com</a> if you have any questions.
 </p>
 </div>
 <div class="clearfix"></div>
@@ -235,141 +298,35 @@ $("#onwards1").click(function(){
 </div>
 </section>
                    
-    <section class="portfolio" id="portfolio">
-      <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">The Process</h2>
-        <hr class="star-dark mb-5">
-        <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/cabin.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/cake.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/circus.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/game.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/safe.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/portfolio/submarine.png" alt="">
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- About Section -->
     <section class="bg-primary text-white mb-0" id="about">
       <div class="container">
-        <h2 class="text-center text-uppercase text-white">About</h2>
+        <h2 class="text-center text-uppercase text-white">Background</h2>
         <hr class="star-light mb-5">
         <div class="row">
           <div class="col-lg-4 ml-auto">
-            <p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+            <p class="lead">Where's Tyler was the brainchild of an annoyed individual who kept falling for Tyler's many pranks.</p>
           </div>
           <div class="col-lg-4 mr-auto">
-            <p class="lead">Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+            <p class="lead">Armed with this tool, we hope that we have finally outtrolled the troll.</p>
           </div>
         </div>
-        <div class="text-center mt-4">
-          <a class="btn btn-xl btn-outline-light" href="#">
-            <i class="fa fa-download mr-2"></i>
-            Download Now!
-          </a>
-        </div>
+        
       </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact">
       <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">Contact Me</h2>
+        <h2 class="text-center text-uppercase text-secondary mb-0">Questions?</h2>
         <hr class="star-dark mb-5">
         <div class="row">
-          <div class="col-lg-8 mx-auto">
+          <div class="col-lg-8 mx-auto" style="text-align: center">
             <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
             <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Name</label>
-                  <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Email Address</label>
-                  <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Phone Number</label>
-                  <input class="form-control" id="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter your phone number.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Message</label>
-                  <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required" data-validation-required-message="Please enter a message."></textarea>
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <br>
-              <div id="success"></div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Send</button>
-              </div>
-            </form>
+            <h3>Ping me at <a href="mailto: aj8uppal@gmail.com">aj8uppal@gmail.com</a>.</h3>
           </div>
         </div>
       </div>
@@ -379,45 +336,12 @@ $("#onwards1").click(function(){
     <footer class="footer text-center">
       <div class="container">
         <div class="row">
-          <div class="col-md-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Location</h4>
-            <p class="lead mb-0">2215 John Daniel Drive
-              <br>Clark, MO 65243</p>
-          </div>
-          <div class="col-md-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Around the Web</h4>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-google-plus"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-linkedin"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-dribbble"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <h4 class="text-uppercase mb-4">About Freelancer</h4>
-            <p class="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
-              <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+          
+          
+          <div class="col-md-4" style="margin: auto">
+            <h4 class="text-uppercase mb-4">About Where's Tyler</h4>
+            <p class="lead mb-0">Where's Tyler is a free to use, open source program created by
+              <a href="http://theajuppal.com">AJ Uppal</a>.</p>
           </div>
         </div>
       </div>
@@ -425,164 +349,27 @@ $("#onwards1").click(function(){
 
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; Your Website 2018</small>
+        <small>Copyright &copy; theajuppal.com</small>
       </div>
     </div>
 
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
     <div class="scroll-to-top d-lg-none position-fixed ">
       <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
         <i class="fa fa-chevron-up"></i>
       </a>
     </div>
 
-    <!-- Portfolio Modals -->
+    
 
-    <!-- Portfolio Modal 1 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
-      <div class="portfolio-modal-dialog bg-white">
-        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-          <i class="fa fa-3x fa-times"></i>
-        </a>
-        <div class="container text-center">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-              <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/cabin.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Close Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Portfolio Modal 2 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
-      <div class="portfolio-modal-dialog bg-white">
-        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-          <i class="fa fa-3x fa-times"></i>
-        </a>
-        <div class="container text-center">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-              <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/cake.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Close Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Portfolio Modal 3 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-3">
-      <div class="portfolio-modal-dialog bg-white">
-        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-          <i class="fa fa-3x fa-times"></i>
-        </a>
-        <div class="container text-center">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-              <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/circus.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Close Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Portfolio Modal 4 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-4">
-      <div class="portfolio-modal-dialog bg-white">
-        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-          <i class="fa fa-3x fa-times"></i>
-        </a>
-        <div class="container text-center">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-              <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/game.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Close Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Portfolio Modal 5 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-5">
-      <div class="portfolio-modal-dialog bg-white">
-        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-          <i class="fa fa-3x fa-times"></i>
-        </a>
-        <div class="container text-center">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-              <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/safe.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Close Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Portfolio Modal 6 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-6">
-      <div class="portfolio-modal-dialog bg-white">
-        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-          <i class="fa fa-3x fa-times"></i>
-        </a>
-        <div class="container text-center">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-              <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/submarine.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                <i class="fa fa-close"></i>
-                Close Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Plugin JavaScript -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
-    <!-- Contact Form JavaScript -->
     <script src="js/jqBootstrapValidation.js"></script>
     <script src="js/contact_me.js"></script>
 
-    <!-- Custom scripts for this template -->
     <script src="js/freelancer.min.js"></script>
 
   </body>
